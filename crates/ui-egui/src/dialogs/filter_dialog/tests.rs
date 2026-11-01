@@ -62,6 +62,14 @@ fn color_settings_working_spaces_list_installed_profiles_of_their_space() {
     let mut empty = vec![("srgb".to_string(), "sRGB")];
     append_installed_options(&mut empty, &[], None, "", "");
     assert_eq!(empty, vec![("srgb".into(), "sRGB")]);
+    let mut empty_with_installed = vec![("srgb".to_string(), "sRGB")];
+    append_installed_options(&mut empty_with_installed, &cmyk_installed, None, "", "");
+    assert_eq!(empty_with_installed, vec![("srgb".into(), "sRGB"), (String::new(), crate::widgets::DROPDOWN_SEPARATOR), ("gracol.icc".into(), "GRACOL.ICC")]);
+
+    // A remembered path outside the choices is listed by its file stem, after a separator.
+    let mut unlisted = vec![("srgb".to_string(), "sRGB")];
+    append_installed_options(&mut unlisted, &[], None, "/profiles/old.icc", "old");
+    assert_eq!(unlisted, vec![("srgb".into(), "sRGB"), (String::new(), crate::widgets::DROPDOWN_SEPARATOR), ("/profiles/old.icc".into(), "old")]);
 }
 
 /// #5710: the seed field's Random button always gives a different seed the field can hold.
