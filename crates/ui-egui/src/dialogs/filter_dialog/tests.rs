@@ -57,6 +57,11 @@ fn color_settings_working_spaces_list_installed_profiles_of_their_space() {
     let mut rgb_only = vec![("srgb".to_string(), "sRGB"), ("coated-cmyk".to_string(), "Coated CMYK")];
     append_installed_options(&mut rgb_only, &cmyk_installed, Some(&allowed), "srgb", "srgb");
     assert_eq!(rgb_only, vec![("srgb".into(), "sRGB")]);
+
+    // An empty current value adds no blank row and no separator before it.
+    let mut empty = vec![("srgb".to_string(), "sRGB")];
+    append_installed_options(&mut empty, &[], None, "", "");
+    assert_eq!(empty, vec![("srgb".into(), "sRGB")]);
 }
 
 /// #5710: the seed field's Random button always gives a different seed the field can hold.

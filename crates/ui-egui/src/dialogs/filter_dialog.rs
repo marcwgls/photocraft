@@ -735,7 +735,7 @@ fn append_installed_options<'a>(opts: &mut Vec<(String, &'a str)>, installed: &'
     opts.retain(|(v, _)| is_allowed(v));
     let mut extra: Vec<(String, &'a str)> =
         installed.iter().filter(|(path, _)| is_allowed(path)).map(|(path, description)| (path.clone(), description.as_str())).collect();
-    if !opts.iter().chain(extra.iter()).any(|(v, _)| *v == current) {
+    if !current.is_empty() && !opts.iter().chain(extra.iter()).any(|(v, _)| *v == current) {
         extra.push((current.to_string(), stem));
     }
     if !opts.is_empty() && !extra.is_empty() {

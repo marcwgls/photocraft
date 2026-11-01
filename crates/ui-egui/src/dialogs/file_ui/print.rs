@@ -530,7 +530,7 @@ pub(super) fn print_body(app: &mut PhotocraftApp, ui: &mut egui::Ui, f: &mut Map
                 let cur = s(f, "printerProfile", "coated-cmyk");
                 let stem = std::path::Path::new(&cur).file_stem().map(|n| n.to_string_lossy().into_owned()).unwrap_or_default();
                 let mut extra: Vec<(&str, &str)> = installed.iter().map(|p| (p.path.as_str(), p.description.as_str())).collect();
-                if !profiles.iter().chain(extra.iter()).any(|(v, _)| *v == cur) {
+                if !cur.is_empty() && !profiles.iter().chain(extra.iter()).any(|(v, _)| *v == cur) {
                     extra.push((cur.as_str(), stem.as_str()));
                 }
                 if !extra.is_empty() {
